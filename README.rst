@@ -10,6 +10,8 @@ Example
 
 `tox.ini` file
 
+.. code-block:: bash
+
     [tox]
     minversion = 3.8.0
     requires = tox-local-hooks
@@ -20,7 +22,9 @@ Example
     randpwdenv = TESTPASSWORD
     commands = bash -c 'echo RANDOM PASSWORD: $TESTPASSWORD'
 
-Then create a `toxhooks.py` file in the same folder as `tox-ini` file
+Then create the `toxhooks.py` file in the same folder as `tox-ini` file
+
+.. code-block:: python
 
     import pluggy, string, random
 
@@ -28,23 +32,22 @@ Then create a `toxhooks.py` file in the same folder as `tox-ini` file
 
     @hookimpl
     def tox_addoption(parser):
-      parser.add_testenv_attribute(
-        "randpwdenv",
-        type="string",
-        help="Random password environmental variable"
-      )
+        parser.add_testenv_attribute(
+            "randpwdenv",
+            type="string",
+            help="Random password environmental variable"
+        )
 
     @hookimpl(tryfirst=True)
     def tox_configure(config):
-      for envConf in config.envconfigs.values():
-        if envConf.randpwdenv:
-          pwd = ''.join(random.choice(string.ascii_letters) for _ in range(10))
-          envConf.setenv[envConf.randpwdenv] = pwd
+        for envConf in config.envconfigs.values():
+            if envConf.randpwdenv:
+                pwd = ''.join(random.choice(string.ascii_letters) for _ in range(10))
+                envConf.setenv[envConf.randpwdenv] = pwd
 
 
+While running `tox`, you should be able to see the following output
 
-While running `tox` you should now get the output
+.. code-block::
 
     RANDOM PASSWORD: {some_random_string}
-
-
