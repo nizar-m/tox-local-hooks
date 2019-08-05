@@ -8,7 +8,7 @@ import traceback
 def get_tox_conffile():
     parser = tox.config.Parser()
     tox.config.tox_addoption(parser)
-    option = parser.parse_cli(sys.argv)
+    option, _ = parser.argparser.parse_known_args(sys.argv)
     for f in tox.config.propose_configs(option.configfile):
         conf_file = f
     return conf_file
