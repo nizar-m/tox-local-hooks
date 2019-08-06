@@ -15,9 +15,7 @@ def get_tox_conffile():
 
 
 def get_hooks_file():
-    conf_file = get_tox_conffile()
-    conf_dir = os.path.abspath(os.path.dirname(conf_file))
-    return conf_dir + '/toxhooks.py'
+    return os.path.abspath(get_tox_conffile().dirname) + '/toxhooks.py'
 
 
 def load_hooks_file():
