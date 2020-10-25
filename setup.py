@@ -14,7 +14,6 @@ setup(
     packages=['tox_local_hooks', ],
     long_description=long_description,
     version=_version,
-    py_modules=['tox_pipenv'],
     url='https://github.com/nizar-m/tox-local-hooks',
     author='Nizar Malangadan',
     classifiers=['Development Status :: 3 - Alpha',
